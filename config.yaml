@@ -1,0 +1,50 @@
+# Configuration du projet Trading GBP/USD
+
+project:
+  name: "GBP_USD_Trading_System"
+  version: "1.0.0"
+
+data:
+  raw_path: "data/raw"
+  processed_path: "data/processed"
+  features_path: "data/features"
+  
+  # Split temporel
+  train_year: 2022
+  valid_year: 2023
+  test_year: 2024
+
+features:
+  # Court terme
+  short_term:
+    - return_1
+    - return_4
+    - ema_20
+    - ema_50
+    - rsi_14
+    - rolling_std_20
+  
+  # Régime
+  regime:
+    - ema_200
+    - atr_14
+    - adx_14
+    - macd
+
+trading:
+  initial_capital: 10000
+  transaction_cost: 0.0002  # 2 pips
+  max_position_size: 1.0
+  
+backtesting:
+  commission: 0.0002
+  slippage: 0.0001
+
+models:
+  save_path: "models"
+  current_version: "v1"
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  model_version: "v1"
