@@ -23,9 +23,10 @@ app.add_middleware(
 )
 
 # Routers
-app.include_router(data_router)
-app.include_router(features_router)
-app.include_router(strategies_router)
+# Routers
+app.include_router(data_router, prefix="/data", tags=["Data"])
+app.include_router(features_router, prefix="/features", tags=["Features"])
+app.include_router(strategies_router, prefix="/strategies", tags=["Strategies"])
 
 
 @app.get("/")

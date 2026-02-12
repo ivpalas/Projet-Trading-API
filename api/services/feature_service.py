@@ -3,6 +3,7 @@
 import pandas as pd
 import numpy as np
 from typing import List, Dict, Optional
+from pathlib import Path
 from api.services.data_service import DataService
 
 
@@ -11,6 +12,10 @@ class FeatureService:
     
     def __init__(self):
         self.data_service = DataService()
+        
+        # Dossier de sortie
+        self.output_dir = Path("data/processed")
+        self.output_dir.mkdir(parents=True, exist_ok=True)
         
         # Définition des groupes de features
         self.feature_groups = {
@@ -69,6 +74,11 @@ class FeatureService:
                 df = self._compute_short_term_feature(df, feature)
             elif feature in self.feature_groups['regime']:
                 df = self._compute_regime_feature(df, feature)
+        
+        # ✅ SAUVEGARDE AUTOMATIQUE
+        output_file = self.output_dir / f"m15_features_{year}.parquet"
+        df.to_parquet(output_file)
+        print(f"✓ Features saved to {output_file}")
         
         return df
     
