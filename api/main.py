@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from api.config import API_TITLE, API_DESCRIPTION, API_VERSION
 from api.routers.data import router as data_router
 from api.routers.features import router as features_router
+from api.routers.strategies import router as strategies_router
 
 app = FastAPI(
     title=API_TITLE,
@@ -24,6 +25,7 @@ app.add_middleware(
 # Routers
 app.include_router(data_router)
 app.include_router(features_router)
+app.include_router(strategies_router)
 
 
 @app.get("/")
