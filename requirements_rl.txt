@@ -1,0 +1,16 @@
+# Requirements pour Reinforcement Learning (T08)
+
+# Core RL
+gymnasium>=0.29.0
+torch>=2.0.0
+stable-baselines3>=2.0.0  # Optionnel: pour agents PPO/A2C
+
+# Utilitaires
+tqdm>=4.65.0
+matplotlib>=3.7.0
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Déjà dans requirements principal
+# scikit-learn>=1.3.0
+# joblib>=1.3.0
