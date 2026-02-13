@@ -1,0 +1,66 @@
+# docker-compose.yml
+# T12 - Orchestration des services
+
+version: '3.8'
+
+services:
+  # ============================================================================
+  # API SERVICE
+  # ============================================================================
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: trading-api
+    ports:
+      - "8000:8000"
+    volumes:
+      # Monter les données (en lecture seule)
+      - ./data:/app/data:ro
+      # Monter les modèles (en lecture/écriture)
+      - ./models:/app/models
+      # Monter les logs
+      - ./logs:/app/logs
+    environment:
+      - ENVIRONMENT=production
+      - LOG_LEVEL=info
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - trading-network
+
+  # ============================================================================
+  # NGINX (OPTIONNEL - pour production)
+  # ============================================================================
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: trading-nginx
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf:ro
+  #   depends_on:
+  #     - api
+  #   restart: unless-stopped
+  #   networks:
+  #     - trading-network
+
+# ============================================================================
+# NETWORKS
+# ============================================================================
+networks:
+  trading-network:
+    driver: bridge
+
+# ============================================================================
+# VOLUMES (optionnel - pour persistence)
+# ============================================================================
+volumes:
+  models-data:
+  logs-data:
