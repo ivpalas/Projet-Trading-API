@@ -35,7 +35,7 @@ class TradingEnv(gym.Env):
         self,
         df: pd.DataFrame,
         initial_balance: float = 10000.0,
-        transaction_cost: float = 0.001,  # 1 pip spread
+        transaction_cost: float = 0.0001,  # 1 pip spread
         max_position: float = 1.0,
         lookback_window: int = 20
     ):

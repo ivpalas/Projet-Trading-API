@@ -34,9 +34,18 @@ models/*/
 # OS
 .DS_Store
 Thumbs.db
+Desktop.ini
+*~
 
 # Logs
 *.log
 
 # Environment
 .env
+
+# IDE 
+
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
